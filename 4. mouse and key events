@@ -1,0 +1,30 @@
+import tkinter as tk
+
+# Set up the main application window
+root = tk.Tk()
+root.title("Drawing with tk")
+
+#draw an oval centred on an 'event' location
+def mouseLeftClick(event):
+    canvas.create_oval(event.x-10, event.y-10, event.x+10, event.y+10, fill="white")
+
+#draw a rectangle centred on an 'event' location
+def mouseRightClick(event):
+    canvas.create_rectangle(event.x-10, event.y-10, event.x+10, event.y+10, fill="black")
+
+#place a character somewhere randomly on the screen
+def keyPress(event):
+    from random import randint
+    canvas.create_text(randint(0,500), randint(0,500),text=event.keysym)
+
+# Create a canvas widget to draw on
+canvas = tk.Canvas(root, width=500, height=500)
+canvas.pack()
+
+#associate pressing a mouse button or a keyboard key with a subprogram
+canvas.bind("<Button-1>", mouseLeftClick)
+canvas.bind("<Button-3>", mouseRightClick)
+root.bind("<Key>", keyPress)
+
+# Start the Tkinter event loop - this listens for events such as pressing a mouse button
+root.mainloop()
